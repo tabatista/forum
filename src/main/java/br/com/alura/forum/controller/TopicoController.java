@@ -4,8 +4,11 @@ import java.net.URI;
 //import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +55,7 @@ public class TopicoController {
 	 */
 
 	@PostMapping // o requestbody informa ao spring que o parametro vem do corpo da requisiçao, e nao da URL
-	public ResponseEntity<TopicoDTO> cadastrar(@RequestBody TopicoForm form, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Validated @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 		Topico topico = form.converter(cursoRepository);
 		topicoRepository.save(topico);
 		
