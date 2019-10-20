@@ -1,18 +1,47 @@
+Começando com Spring Data JPA
 
------------------------------------
+Para um método no controller não encaminhar a requisição a uma página JSP, ou Thymeleaf, devemos utilizar a anotação @ResponseBody;
+
+P Spring, por padrão, converte os dados no formato JSON, utilizando a biblioteca Jackson;
+
+Para não repetir a anotação @ResponseBody em todos os métodos do controller, devemos utilizar a anotação @RestController;
+
+Para não precisar reiniciar manualmente o servidor a cada alteração feita no código, basta utilizar o módulo Spring Boot DevTools;
+
+Não é uma boa prática retornar entidades JPA nos métodos dos controllers, sendo mais indicado retornar classes que seguem o padrão DTO (Data Transfer Object);
+
+Banco de dados H2, banco em memória - JPA
+acessar console do banco no navegador http://localhost:8080/h2-console/
+
+----------------------------------------------------------------------------------------------------------------
 Usando Spring Data
 
-Para utilizar o JPA no projeto, devemos incluir o m�dulo Spring Boot Data JPA, que utiliza o Hibernate, por padr�o, como sua implementa��o;
+Para utilizar o JPA no projeto, devemos incluir o m�dulo Spring Boot Data JPA, que utiliza o Hibernate, por padr�o, como sua implementa��o;
 
-Para configurar o banco de dados da aplica��o, devemos adicionar as propriedades do datasource e do JPA no arquivo src/main/resources/application.properties;
+Para configurar o banco de dados da aplica��o, devemos adicionar as propriedades do datasource e do JPA no arquivo src/main/resources/application.properties;
 
-Para acessar a p�gina de gerenciamento do banco de dados H2, devemos configurar o console do H2 com propriedades no arquivo src/main/resources/application.properties;
+Para acessar a p�gina de gerenciamento do banco de dados H2, devemos configurar o console do H2 com propriedades no arquivo src/main/resources/application.properties;
 
-Para mapear as classes de dom�nio da aplica��o como entidade JPA, devemos utilizar as anota��es @Entity, @Id, @GeneratedValue, @ManyToOne, @OneToMany e @Enumerated;
+Para mapear as classes de dom�nio da aplica��o como entidade JPA, devemos utilizar as anota��es @Entity, @Id, @GeneratedValue, @ManyToOne, @OneToMany e @Enumerated;
 
-Para que o Spring Boot popule automaticamente o banco de dados da aplica��o, devemos criar o arquivo src/main/resources/data.sql;
+Para que o Spring Boot popule automaticamente o banco de dados da aplica��o, devemos criar o arquivo src/main/resources/data.sql;
 Para criar um Repository, devemos criar uma interface, que herda da interface JPARepository do Spring Data JPA;
 
-Para criar consultas que filtram por atributos da entidade, devemos seguir o padr�o de nomenclatura de m�todos do Spring, como por exemplo findByCursoNome;
+Para criar consultas que filtram por atributos da entidade, devemos seguir o padr�o de nomenclatura de m�todos do Spring, como por exemplo findByCursoNome;
 
-Para criar manualmente a consulta com JPQL, devemos utilizar a anota��o @Query;
+Para criar manualmente a consulta com JPQL, devemos utilizar a anota��o @Query;
+
+----------------------------------------------------------------------------------------------------------------
+Trabalhando com POST
+
+Para evitar repetir a URL em todos os métodos, devemos utilizar a anotação @RequestMapping em cima da classe controller;
+
+Para mapear requisições do tipo POST, devemos utilizar a anotação @PostMapping;
+
+Para receber dados enviados no corpo da requisição, a boa prática é criar uma classe que também siga o padrão DTO (Data Transfer Object);
+
+A boa prática para métodos que cadastram informações é devolver o código HTTP 201, ao invés do código 200;
+
+Para montar uma resposta a ser devolvida ao cliente da API, devemos utilizar a classe ResponseEntity do Spring;
+
+Para testar requisições do tipo POST, precisamos utilizar alguma ferramenta de testes de API Rest; utilizamos o Postman para testar uma API Rest;

@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 
 import br.com.alura.forum.model.Topico;
 
+/**
+ * Classe do tipo DTO manda informações "filtradas"
+ * @author Thais
+ *
+ */
 public class TopicoDTO {
 
 	private Long id;
