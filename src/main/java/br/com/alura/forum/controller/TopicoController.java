@@ -28,6 +28,9 @@ import br.com.alura.forum.controller.forms.TopicoForm;
 import br.com.alura.forum.model.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 
 @RestController
 @RequestMapping("/topicos") // nao preciso repetir essa informacao em todos os metodos, mas todos utilizam o
@@ -41,7 +44,12 @@ public class TopicoController {
 	@Autowired
 	private CursoRepository cursoRepository;
 
-	@GetMapping // verbo http - get
+	@ApiResponses(value = {
+		    @ApiResponse(code = 200, message = "Retorna a lista de foruns (com nome parametrizado)"),
+		    @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+		    @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+		})
+	@GetMapping(produces = "application/json") // verbo http - get
 	public List<TopicoDTO> lista(String nomeCurso) {
 		// com parametro equivale a http://localhost:8080/topicos?nomeCurso=Thais
 		System.out.println(nomeCurso);
@@ -62,8 +70,9 @@ public class TopicoController {
 	 * return TopicoDTO.converter(Arrays.asList(t, t, t)); }
 	 */
 
-	@PostMapping // o requestbody informa ao spring que o parametro vem do corpo da requisiçao, e nao da URL
+	@PostMapping(produces="application/json") 
 	@Transactional
+	// o requestbody informa ao spring que o parametro vem do corpo da requisiçao, e nao da URL
 	public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Validated @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 		Topico topico = form.converter(cursoRepository);
 		topicoRepository.save(topico);
@@ -93,7 +102,10 @@ public class TopicoController {
 		}
 	}
 	
-	@PutMapping("/{id}")
+	//swagger
+	//com o atributo consumes é possível especificar o tipo de conteúdo que ele consome
+	//tipo do conteúdo que ele produz com o atributo produces
+	@PutMapping(value = "/{id}", produces="application/json", consumes="application/json")
 	@Transactional
 	public ResponseEntity<TopicoDTO> atualizar(@PathVariable Long id, @RequestBody @Validated @Valid AtualizacaoTopicoForm form){
 		
@@ -111,6 +123,7 @@ public class TopicoController {
 		}		
 	}
 	
+	@ApiOperation("Deleta um topico pelo ID") //padrao
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> remover(@PathVariable Long id){

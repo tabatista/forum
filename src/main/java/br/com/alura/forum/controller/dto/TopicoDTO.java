@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.alura.forum.model.Topico;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Classe do tipo DTO manda informações "filtradas"
@@ -13,6 +14,7 @@ import br.com.alura.forum.model.Topico;
  */
 public class TopicoDTO {
 
+	@ApiModelProperty(value = "Codigo do topico")
 	private Long id;
 	private String titulo;
 	private String mensagem;
