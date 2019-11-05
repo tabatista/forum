@@ -1,9 +1,0 @@
-br\com\alura\forum\ForumApplication.class
-br\com\alura\forum\model\Resposta.class
-br\com\alura\forum\model\StatusTopico.class
-br\com\alura\forum\controller\TopicoController.class
-br\com\alura\forum\model\Curso.class
-br\com\alura\forum\controller\dto\TopicoDTO.class
-br\com\alura\forum\model\Usuario.class
-br\com\alura\forum\controller\HelloController.class
-br\com\alura\forum\model\Topico.class
